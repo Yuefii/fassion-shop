@@ -1,9 +1,16 @@
+import Banner from "@/components/Banner";
+import LayoutContainer from "@/components/Layout";
+
 const Pages = () => {
   return (
-    <main>
-      <h1>FASION SHOP</h1>
-    </main>
-  )
-}
+    <div className="p-8">
+      <LayoutContainer>
+        <div>
+          <Banner />
+        </div>
+      </LayoutContainer>
+    </div>
+  );
+};
 
-export default Pages
+export default Pages;

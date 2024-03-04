@@ -25,15 +25,15 @@ const SetColor: React.FC<SetColorProps> = ({
             <div
               key={item.color}
               onClick={() => handleColorSelect(item)}
-              className={`h-7 w-7 rounded-full border-teal-300 flex items-center ${
+              className={`h-7 w-7 rounded-full border-teal-300 flex items-center justify-center ${
                 cartProduct.selectedImg.color === item.color
-                  ? "border-1"
+                  ? "border-2"
                   : "border-none"
               }`}
             >
               <div
                 style={{ background: item.colorCode }}
-                className="h-5 w-5 rounded-full border-1 border-gray-300 cursor-pointer"
+                className="h-5 w-5 rounded-full border-[1.2px] border-gray-300 cursor-pointer"
               />
             </div>
           ))}

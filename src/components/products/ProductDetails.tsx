@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import { SelectedImgType } from "@/types/SelectedImgType";
 
 import SetColor from "./SetColor";
+import SetQuantity from "./SetQuantity";
 
 const ProductDetails = ({ product }: any) => {
   const [cartProduct, setCardProduct] = useState<CartProductsType>({
@@ -30,6 +31,26 @@ const ProductDetails = ({ product }: any) => {
       return { ...prev, selectedImg: value };
     });
   }, []);
+
+  const handleQuantityIncrease = useCallback(() => {
+    if (cartProduct.quantity == 99) {
+      return;
+    }
+
+    setCardProduct((prev) => {
+      return { ...prev, quantity: prev.quantity + 1 };
+    });
+  }, [cartProduct]);
+
+  const handleQuantityDecrease = useCallback(() => {
+    if (cartProduct.quantity == 1) {
+      return;
+    }
+    setCardProduct((prev) => {
+      return { ...prev, quantity: prev.quantity - 1 };
+    });
+  }, [cartProduct]);
+
   const Horizontal = () => {
     return <hr className="w-[30%] my-2" />;
   };
@@ -62,6 +83,12 @@ const ProductDetails = ({ product }: any) => {
           cartProduct={cartProduct}
           images={product.images}
           handleColorSelect={handleColorSelect}
+        />
+        <Horizontal />
+        <SetQuantity
+          cartProduct={cartProduct}
+          handleQuantityIncrease={handleQuantityIncrease}
+          handleQuantityDecrease={handleQuantityDecrease}
         />
         <Horizontal />
       </div>

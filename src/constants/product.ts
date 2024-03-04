@@ -4,6 +4,7 @@ export const product = {
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, fuga!",
     price: 195000,
     brand: "PANARYBODY",
+    quantity: 1,
     category: "shoes",
     inStock: true,
     images: [

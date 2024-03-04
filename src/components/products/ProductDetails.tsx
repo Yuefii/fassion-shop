@@ -1,0 +1,72 @@
+"use client";
+
+import { CartProductsType } from "@/types/CartProductsType";
+import { Rating } from "@mui/material";
+import { useCallback, useState } from "react";
+import { SelectedImgType } from "@/types/SelectedImgType";
+
+import SetColor from "./SetColor";
+
+const ProductDetails = ({ product }: any) => {
+  const [cartProduct, setCardProduct] = useState<CartProductsType>({
+    id: product.id,
+    name: product.name,
+    description: product.description,
+    category: product.category,
+    brand: product.brand,
+    selectedImg: { ...product.images[0] },
+    quantity: product.quantity,
+    price: product.price,
+  });
+
+  console.log(cartProduct);
+
+  const productRating =
+    product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
+    product.reviews.length;
+
+  const handleColorSelect = useCallback((value: SelectedImgType) => {
+    setCardProduct((prev) => {
+      return { ...prev, selectedImg: value };
+    });
+  }, []);
+  const Horizontal = () => {
+    return <hr className="w-[30%] my-2" />;
+  };
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-sm">
+      <div>IMAGES</div>
+      <div>
+        <h1 className="text-3xl font-medium text-gray-700">{product.name}</h1>
+        <div className="flex items-center gap-2">
+          <Rating value={productRating} readOnly />
+          <div>{product.reviews.length} reviews</div>
+        </div>
+        <Horizontal />
+        <p className="text-justify">{product.description}</p>
+        <Horizontal />
+        <div>
+          <span className="font-semibold">Category: </span>
+          {product.category}
+        </div>
+        <div>
+          <span className="font-semibold">Brand: </span>
+          {product.brand}
+        </div>
+        <div className={product.inStock ? "text-teal-400" : "text-rose-400"}>
+          {product.inStock ? "In Stock" : "Out of Stock"}
+        </div>
+        <Horizontal />
+        <SetColor
+          cartProduct={cartProduct}
+          images={product.images}
+          handleColorSelect={handleColorSelect}
+        />
+        <Horizontal />
+      </div>
+    </div>
+  );
+};
+
+export default ProductDetails;

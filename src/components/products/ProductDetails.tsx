@@ -8,6 +8,7 @@ import { SelectedImgType } from "@/types/SelectedImgType";
 import SetColor from "./SetColor";
 import SetQuantity from "./SetQuantity";
 import Button from "../ui/Button";
+import ProductImage from "./ProductImage";
 
 const ProductDetails = ({ product }: any) => {
   const [cartProduct, setCardProduct] = useState<CartProductsType>({
@@ -58,7 +59,11 @@ const ProductDetails = ({ product }: any) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-sm">
-      <div>IMAGES</div>
+      <ProductImage
+        cartProduct={cartProduct}
+        product={product}
+        handleColorSelect={handleColorSelect}
+      />
       <div>
         <h1 className="text-3xl font-medium text-gray-700">{product.name}</h1>
         <div className="flex items-center gap-2">

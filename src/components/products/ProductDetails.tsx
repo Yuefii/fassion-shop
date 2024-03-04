@@ -7,6 +7,7 @@ import { SelectedImgType } from "@/types/SelectedImgType";
 
 import SetColor from "./SetColor";
 import SetQuantity from "./SetQuantity";
+import Button from "../ui/Button";
 
 const ProductDetails = ({ product }: any) => {
   const [cartProduct, setCardProduct] = useState<CartProductsType>({
@@ -20,7 +21,7 @@ const ProductDetails = ({ product }: any) => {
     price: product.price,
   });
 
-  console.log(cartProduct);
+  // console.log(cartProduct);
 
   const productRating =
     product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
@@ -91,6 +92,9 @@ const ProductDetails = ({ product }: any) => {
           handleQuantityDecrease={handleQuantityDecrease}
         />
         <Horizontal />
+        <div className="max-w-[300px]">
+          <Button label="Add to Cart" onClick={() => {}} />
+        </div>
       </div>
     </div>
   );

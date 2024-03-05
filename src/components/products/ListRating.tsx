@@ -3,6 +3,7 @@
 import moment from "moment";
 import Heading from "./Heading";
 import { Rating } from "@mui/material";
+import Avatar from "./Avatar";
 
 const ListRating = ({ product }: any) => {
   return (
@@ -12,7 +13,7 @@ const ListRating = ({ product }: any) => {
         {product.reviews.map((item: any) => (
           <div key={item.id} className="max-w-[300px]">
             <div className="flex gap-2 items-center">
-              {/* AVATAR */}
+              <Avatar src={item?.user.image} />
               <div className="font-semibold">{item?.user.name}</div>
               <div className="font-light">
                 {moment(item.createdDate).fromNow()}

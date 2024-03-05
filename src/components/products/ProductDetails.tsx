@@ -9,8 +9,10 @@ import SetColor from "./SetColor";
 import SetQuantity from "./SetQuantity";
 import Button from "../ui/Button";
 import ProductImage from "./ProductImage";
+import { useCart } from "@/hooks/useCart";
 
 const ProductDetails = ({ product }: any) => {
+  const { cartProducts, handleAddToCart } = useCart();
   const [cartProduct, setCardProduct] = useState<CartProductsType>({
     id: product.id,
     name: product.name,
@@ -23,6 +25,8 @@ const ProductDetails = ({ product }: any) => {
   });
 
   // console.log(cartProduct);
+  // console.log(cartProducts);
+  
 
   const productRating =
     product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
@@ -98,7 +102,10 @@ const ProductDetails = ({ product }: any) => {
         />
         <Horizontal />
         <div className="max-w-[300px]">
-          <Button label="Add to Cart" onClick={() => {}} />
+          <Button
+            label="Add to Cart"
+            onClick={() => handleAddToCart(cartProduct)}
+          />
         </div>
       </div>
     </div>

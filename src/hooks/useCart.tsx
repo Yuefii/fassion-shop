@@ -1,4 +1,3 @@
-import { product } from "@/constants/product";
 import { CartProductsType } from "@/types/CartProductsType";
 import {
   createContext,
@@ -7,6 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
+
 import toast from "react-hot-toast";
 
 type CartContextType = {
@@ -14,6 +14,8 @@ type CartContextType = {
   cartProducts: CartProductsType[] | null;
   handleAddToCart: (product: CartProductsType) => void;
   handleRemoveCart: (product: CartProductsType) => void;
+  handleIncreaseOnCart: (product: CartProductsType) => void;
+  handleDecreaseOnCart: (product: CartProductsType) => void;
 };
 
 export const CartContext = createContext<CartContextType | null>(null);
@@ -59,11 +61,63 @@ export const CartContextProvider = (props: any) => {
     [cartProducts]
   );
 
+  const handleIncreaseOnCart = useCallback(
+    (product: CartProductsType) => {
+      let updatedCart;
+
+      if (product.quantity === 99) {
+        return toast.error("Maximun Reached");
+      }
+
+      if (cartProducts) {
+        updatedCart = [...cartProducts];
+
+        const exiting = cartProducts.findIndex(
+          (item) => item.id === product.id
+        );
+
+        if (exiting > -1) {
+          updatedCart[exiting].quantity = updatedCart[exiting].quantity + 1;
+        }
+        setCartProducts(updatedCart);
+        localStorage.setItem("ShopCartItems", JSON.stringify(updatedCart));
+      }
+    },
+    [cartProducts]
+  );
+
+  const handleDecreaseOnCart = useCallback(
+    (product: CartProductsType) => {
+      let updatedCart;
+
+      if (product.quantity === 1) {
+        return toast.error("Minimum Reached");
+      }
+
+      if (cartProducts) {
+        updatedCart = [...cartProducts];
+
+        const exiting = cartProducts.findIndex(
+          (item) => item.id === product.id
+        );
+
+        if (exiting > -1) {
+          updatedCart[exiting].quantity = updatedCart[exiting].quantity - 1;
+        }
+        setCartProducts(updatedCart);
+        localStorage.setItem("ShopCartItems", JSON.stringify(updatedCart));
+      }
+    },
+    [cartProducts]
+  );
+
   const value = {
     cartTotalQuantity,
     cartProducts,
     handleAddToCart,
-    handleRemoveCart
+    handleRemoveCart,
+    handleIncreaseOnCart,
+    handleDecreaseOnCart,
   };
 
   return <CartContext.Provider value={value} {...props} />;

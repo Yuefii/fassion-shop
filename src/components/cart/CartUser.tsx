@@ -1,10 +1,12 @@
 "use client";
 
 import { useCart } from "@/hooks/useCart";
-import Link from "next/link";
 import { MdArrowBack } from "react-icons/md";
+
+import Link from "next/link";
 import Heading from "../products/Heading";
 import Button from "../ui/Button";
+import CartItem from "./CartItem";
 
 const CartUser = () => {
   const { cartProducts } = useCart();
@@ -33,7 +35,7 @@ const CartUser = () => {
       </div>
       <div>
         {cartProducts &&
-          cartProducts.map((item) => <div key={item.id}>{item.name}</div>)}
+          cartProducts.map((item) => <CartItem key={item.id} item={item} />)}
       </div>
       <div className="border-t-[1.5px] border-gray-200 py-4 flex justify-between gap-4">
         <div className="w-[90px]">

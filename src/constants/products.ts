@@ -7,6 +7,7 @@ export const products = [
     brand: "PANARYBODY",
     category: "shoes",
     inStock: true,
+    quantity: 0,
     images: [
       {
         color: "White",
@@ -35,7 +36,7 @@ export const products = [
           email: "example@gmail.com",
           emailVerified: null,
           image:
-            "https://lh3.googleusercontent.com/a/AAcHTteOiCtILLBWiAoolIW9PJH-r5825pBDl824_8LD=s96-c",
+            "",
           hashedPassword: null,
           createdAt: "2023-05-30T08:08:53.979Z",
           updatedAt: "2023-05-30T08:08:53.979Z",
@@ -53,6 +54,7 @@ export const products = [
     brand: "logitech",
     category: "hoodies",
     inStock: true,
+    quantity: 0,
     images: [
       {
         color: "Black",
@@ -75,7 +77,7 @@ export const products = [
           email: "example@gmail.com",
           emailVerified: null,
           image:
-            "https://lh3.googleusercontent.com/a/AAcHTteOiCtILLBWiAoolIW9PJH-r5825pBDl824_8LD=s96-c",
+            "",
           hashedPassword: null,
           createdAt: "2023-05-30T08:08:53.979Z",
           updatedAt: "2023-05-30T08:08:53.979Z",
@@ -93,6 +95,7 @@ export const products = [
     brand: "HOWELL",
     category: "trousers",
     inStock: true,
+    quantity: 0,
     images: [
       {
         color: "Black",
@@ -116,7 +119,7 @@ export const products = [
           email: "example1@gmail.com",
           emailVerified: null,
           image:
-            "https://lh3.googleusercontent.com/a/AAcHTtcuRLwWi1vPKaQOcJlUurlhRAIIq2LgYccE8p32=s96-c",
+            "",
           hashedPassword: null,
           role: "USER",
         },
@@ -134,7 +137,7 @@ export const products = [
           email: "example@gmail.com",
           emailVerified: null,
           image:
-            "https://lh3.googleusercontent.com/a/AAcHTteOiCtILLBWiAoolIW9PJH-r5825pBDl824_8LD=s96-c",
+            "",
           hashedPassword: null,
           role: "ADMIN",
         },
@@ -150,6 +153,7 @@ export const products = [
     brand: "Three Pigeon",
     category: "t-shirt",
     inStock: true,
+    quantity: 99,
     images: [
       {
         color: "Graphite",

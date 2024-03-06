@@ -7,9 +7,10 @@ import Link from "next/link";
 import Heading from "../products/Heading";
 import Button from "../ui/Button";
 import CartItem from "./CartItem";
+import { formatPrice } from "@/utils/formatPrice";
 
 const CartUser = () => {
-  const { cartProducts, handleClearCart } = useCart();
+  const { cartProducts, cartTotalAmount, handleClearCart } = useCart();
   if (!cartProducts || cartProducts.length === 0) {
     return (
       <div className="flex flex-col item-center">
@@ -51,7 +52,7 @@ const CartUser = () => {
         <div className="text-sm flex flex-col gap-1 items-start">
           <div className="flex justify-between w-full text-base font-semibold">
             <span>Subtotal</span>
-            <span>Rp.100.000</span>
+            <span>{formatPrice(cartTotalAmount)}</span>
           </div>
           <p className="text-gray-500">
             Taxes and Shipping calculate at checkout

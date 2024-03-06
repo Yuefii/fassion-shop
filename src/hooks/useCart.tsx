@@ -10,6 +10,7 @@ import {
 import toast from "react-hot-toast";
 
 type CartContextType = {
+  cartTotalAmount: number;
   cartTotalQuantity: number;
   cartProducts: CartProductsType[] | null;
   handleAddToCart: (product: CartProductsType) => void;
@@ -22,16 +23,40 @@ type CartContextType = {
 export const CartContext = createContext<CartContextType | null>(null);
 
 export const CartContextProvider = (props: any) => {
+  const [cartTotalAmount, setCartTotalAmount] = useState(0);
   const [cartTotalQuantity, setCartTotalQuantity] = useState(0);
   const [cartProducts, setCartProducts] = useState<CartProductsType[] | null>(
     null
   );
 
   useEffect(() => {
-    const cartItems: any = localStorage.getItem("shopCartItems");
+    const cartItems: any = localStorage.getItem("cartItems");
     const cartProduct: CartProductsType[] | null = JSON.parse(cartItems);
     setCartProducts(cartProduct);
   }, []);
+
+  useEffect(() => {
+    const getTotal = () => {
+      if (cartProducts) {
+        const { total, quantity } = cartProducts?.reduce(
+          (acc, item) => {
+            const itemTotal = item.price * item.quantity;
+            acc.total += itemTotal;
+            acc.quantity += item.quantity;
+
+            return acc;
+          },
+          { 
+            total: 0,
+            quantity: 0,
+          }
+        );
+        setCartTotalQuantity(quantity)
+        setCartTotalAmount(total)
+      }
+    };
+    getTotal()
+  },[cartProducts]);
 
   const handleAddToCart = useCallback((product: CartProductsType) => {
     setCartProducts((prev) => {
@@ -43,7 +68,7 @@ export const CartContextProvider = (props: any) => {
         updatedCart = [product];
       }
       toast.success("Product added to cart");
-      localStorage.setItem("shopCartItems", JSON.stringify(updatedCart));
+      localStorage.setItem("cartItems", JSON.stringify(updatedCart));
       return updatedCart;
     });
   }, []);
@@ -56,7 +81,7 @@ export const CartContextProvider = (props: any) => {
         });
         setCartProducts(filteredProduct);
         toast.success("Product Removed");
-        localStorage.setItem("ShopCartItems", JSON.stringify(filteredProduct));
+        localStorage.setItem("cartItems", JSON.stringify(filteredProduct));
       }
     },
     [cartProducts]
@@ -78,10 +103,10 @@ export const CartContextProvider = (props: any) => {
         );
 
         if (exiting > -1) {
-          updatedCart[exiting].quantity = updatedCart[exiting].quantity + 1;
+          updatedCart[exiting].quantity = ++updatedCart[exiting].quantity;
         }
         setCartProducts(updatedCart);
-        localStorage.setItem("ShopCartItems", JSON.stringify(updatedCart));
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
       }
     },
     [cartProducts]
@@ -103,23 +128,24 @@ export const CartContextProvider = (props: any) => {
         );
 
         if (exiting > -1) {
-          updatedCart[exiting].quantity = updatedCart[exiting].quantity - 1;
+          updatedCart[exiting].quantity = --updatedCart[exiting].quantity;
         }
         setCartProducts(updatedCart);
-        localStorage.setItem("ShopCartItems", JSON.stringify(updatedCart));
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
       }
     },
     [cartProducts]
   );
 
-  const handleClearCart = useCallback((product: CartProductsType) => {
-    setCartProducts(null);
+  const handleClearCart = useCallback(() => {
     setCartTotalQuantity(0);
-    localStorage.setItem("ShopCartItems", JSON.stringify(null));
+    setCartProducts(null);
+    localStorage.setItem("cartItems", JSON.stringify(null));
   }, []);
 
   const value = {
     cartTotalQuantity,
+    cartTotalAmount,
     cartProducts,
     handleAddToCart,
     handleRemoveCart,

@@ -1,9 +1,15 @@
+import { products } from "@/constants/products";
+
 import LayoutContainer from "@/components/Layout";
-import { product } from "@/constants/product";
-import ProductDetails from "../../../components/products/ProductDetails";
+import ProductDetails from "@/components/products/ProductDetails";
 import ListRating from "@/components/products/ListRating";
 
-const Page = () => {
+interface Params {
+  productId?: string;
+}
+
+const Page = ({ params }: { params: Params }) => {
+  const product = products.find((item) => item.id === params.productId);
   return (
     <main className="p-8">
       <LayoutContainer>

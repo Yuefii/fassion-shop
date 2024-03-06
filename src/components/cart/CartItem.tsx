@@ -7,12 +7,14 @@ import { CartProductsType } from "@/types/CartProductsType";
 import Link from "next/link";
 import Image from "next/image";
 import SetQuantity from "../products/SetQuantity";
+import { useCart } from "@/hooks/useCart";
 
 interface CartItemProps {
   item: CartProductsType;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
+  const { handleRemoveCart } = useCart();
   return (
     <div className="grid grid-cols-5 text-xs md:text-sm gap-4 border-t-[1.5px] border-gray-200 py-4 items-center">
       <div className="col-span-2 justify-self-start flex gap-2 md:gap-4">
@@ -30,9 +32,12 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           <Link href={`/products/${item.id}`}>{truncate(item.name)}</Link>
           <div>{item.selectedImg.color}</div>
           <div>
-            <p className="text-gray-500 underline" onClick={() => {}}>
+            <button
+              className="text-gray-500 underline"
+              onClick={() => handleRemoveCart(item)}
+            >
               Remove
-            </p>
+            </button>
           </div>
         </div>
       </div>
